@@ -24,7 +24,6 @@ public class LanceService {
 	private LeilaoRepository leiloes;
 
 	public boolean propoeLance(NovoLanceDto lanceDto, String nomeUsuario) {
-
 		Usuario usuario = usuarios.getUserByUsername(nomeUsuario);
 		Lance lance = lanceDto.toLance(usuario);
 
