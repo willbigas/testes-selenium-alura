@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class CadastroLeilaoPage {
 
     public static final String URL_CADASTRO_LEILAO = "http://localhost:8080/leiloes/new";
+    public static final String URL_LEILOES = "http://localhost:8080/leiloes";
 
 
     private WebDriver browser;
@@ -30,5 +31,21 @@ public class CadastroLeilaoPage {
         this.browser.findElement(By.id("dataAbertura")).sendKeys(dataAbertura);
         this.browser.findElement(By.id("button-submit")).submit();
         return new LeiloesPage(browser);
+    }
+
+    public boolean isPaginaAtual() {
+        return browser.getCurrentUrl().equals(URL_CADASTRO_LEILAO);
+    }
+
+    public boolean isPaginaLeiloes() {
+        return browser.getCurrentUrl().equals(URL_LEILOES);
+    }
+
+    public boolean isMensagensDeValidacaoVisiveis() {
+        String pageSource = browser.getPageSource();
+        return pageSource.contains("minimo 3 caracteres")
+                && pageSource.contains("não deve estar em branco")
+                && pageSource.contains("deve ser um valor maior de 0.1")
+                && pageSource.contains("deve ser uma data no formato dd/MM/yyyy");
     }
 }
